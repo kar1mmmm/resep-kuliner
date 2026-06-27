@@ -10,9 +10,10 @@ const AddRecipe = () => {
     const navigate = useNavigate();
 
     const handleSubmit = (data) => {
+        // Pastikan author diisi dengan user.name (jika ada)
         const newRecipe = {
             ...data,
-            author: data.author || user?.name || 'User',
+            author: user?.name || 'User', // <-- kunci: pakai user.name
         };
         addRecipe(newRecipe);
         navigate('/recipes');
@@ -37,4 +38,4 @@ const AddRecipe = () => {
     );
 };
 
-export default AddRecipe; 
+export default AddRecipe;

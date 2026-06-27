@@ -8,13 +8,16 @@ const Profile = () => {
     const { user, logout } = useAuth();
     const { recipes } = useRecipes();
 
-    const userRecipes = recipes.filter((r) =>
-        r.author && user && r.author.toLowerCase() === user.name?.toLowerCase()
-    );
+    // Filter resep berdasarkan author yang sama dengan user.name (case insensitive)
+    const userRecipes = recipes.filter((r) => {
+        if (!user || !r.author) return false;
+        return r.author.toLowerCase() === user.name?.toLowerCase();
+    });
 
     return (
         <div className="container">
             <div className="row g-4">
+                {/* Profile Info */}
                 <div className="col-lg-4">
                     <div className="card p-4 shadow-sm">
                         <div className="text-center mb-3">
@@ -39,6 +42,7 @@ const Profile = () => {
                     </div>
                 </div>
 
+                {/* User's Recipes */}
                 <div className="col-lg-8">
                     <h4 className="fw-bold mb-3">Resep Saya</h4>
                     {userRecipes.length > 0 ? (
@@ -58,4 +62,4 @@ const Profile = () => {
     );
 };
 
-export default Profile; 
+export default Profile;
